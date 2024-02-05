@@ -1,0 +1,49 @@
+
+
+
+create table main.cars
+(
+    car_id              INTEGER
+        primary key autoincrement,
+    make                VARCHAR(50)                       not null,
+    model               VARCHAR(50)                       not null,
+    year                YEAR                              not null,
+    registration_number VARCHAR(20)                       not null
+        unique,
+    current_mileage     INTEGER                           not null,
+    status              VARCHAR(15)                       not null,
+    car_type            varchar(20) default "regular_car" not null
+);
+
+create table main.customers
+(
+    customer_id    INTEGER
+        primary key autoincrement,
+    first_name     VARCHAR(100) not null,
+    last_name      VARCHAR(100) not null,
+    email          VARCHAR(255) not null
+        unique,
+    phone_number   VARCHAR(20)  not null,
+    driver_license_number VARCHAR(50)  not null
+        unique,
+    address        TEXT         not null
+);
+
+
+create table main.rentals
+(
+    rental_id      INTEGER
+        primary key autoincrement,
+    car_id         INTEGER        not null
+        references main.cars,
+    customer_id    INTEGER        not null
+        references main.customers,
+    start_datetime DATETIME       not null,
+    end_datetime   DATETIME       not null,
+    price_per_day  DECIMAL(10, 2) not null,
+    total_price    DECIMAL(10, 2) not null,
+    status         VARCHAR(15)    not null
+);
+
+
+
